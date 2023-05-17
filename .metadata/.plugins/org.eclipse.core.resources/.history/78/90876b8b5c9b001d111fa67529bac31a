@@ -1,0 +1,62 @@
+package com.actitime.testscript;
+
+
+import java.io.IOException;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import com.actitime.generic.BaseClass;
+import com.actitime.generic.FileLib;
+import com.actitime.pom.HomePage;
+import com.actitime.pom.TaskPage;
+
+@Listeners(com.actitime.generic.ListenerImplementation.class)
+public class CustomerModule extends BaseClass {
+	
+	
+	@Test
+	public void testCreateCustomer() throws IOException, InterruptedException {
+		Reporter.log("CreateCustomer",true);
+		FileLib f=new FileLib();
+		String customernmae = f.getExcelFile("Sheet1",1, 5);
+		System.out.println(customernmae);
+		Thread.sleep(2000);
+		String customerDescription = f.getExcelFile("Sheet1",1, 6);
+		System.out.println(customerDescription);
+		
+		
+		
+		HomePage h=new HomePage(driver);
+		h.setTaskButton();
+		
+		
+		TaskPage t=new TaskPage(driver);
+		
+		t.getAddNewButton().click();
+		Thread.sleep(2000);
+		t.getNewCustomerBtn().click();
+		Thread.sleep(2000);
+		t.getEnterCustomerName().sendKeys(customernmae);
+		Thread.sleep(2000);
+		t.getDescriptionBtn().sendKeys(customerDescription);
+		Thread.sleep(2000);
+		
+		t.getSelectCustomerBtn().sendKeys("(our company" +Keys.ENTER);
+		
+		Thread.sleep(2000);
+		t.getCreateCustomerBtn().click();
+		Thread.sleep(2000);
+		
+		
+		
+		
+		
+
+	}
+
+}
